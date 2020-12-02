@@ -51,7 +51,7 @@ for line in program:
      
     tokens = line.split(' ')
     print ("Tokens are"+str(tokens))
-    print ("Line #"+str(count)+'properties \n')
+    print ("\n Individual Properties of Line #"+str(count))
     for token in tokens:
         
         if '\r' in token:
@@ -93,6 +93,7 @@ for line in program:
             
     
     print ("________________________")
+    print()
     
 
 f.close()
