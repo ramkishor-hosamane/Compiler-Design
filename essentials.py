@@ -12,6 +12,48 @@ RPAREN = 'RPAREN'
 
 
 
+
+operators = { '=': 'Assignment Operator','+': 'Additon Operator', '-' : 'Substraction Operator', '/' : 'Division Operator', '*': 'Multiplication Operator', '++' : 'increment Operator', '--' : 'Decrement Operator'}
+optr_keys = operators.keys()
+
+comments = {r'//' : 'Single Line Comment',r'/*' : 'Multiline Comment Start', r'*/' : 'Multiline Comment End', '/**/' : 'Empty Multiline comment'}
+comment_keys = comments.keys()
+
+header = {'.h': 'header file'}
+header_keys = header.keys()
+
+sp_header_files = {'<stdio.h>':'Standard Input Output Header','<string.h>':'String Manipulation Library'}
+
+macros = {r'#\w+' : 'macro'}
+macros_keys = macros.keys()
+
+datatype = {'int': 'Integer','float' : 'Floating Point', 'char': 'Character','long': 'long int'}
+datatype_keys = datatype.keys()
+
+keyword = {'return' : 'keyword that returns a value from a block'}
+keyword_keys = keyword.keys()
+
+delimiter = {';':'terminator symbol semicolon (;)'}
+delimiter_keys = delimiter.keys()
+
+blocks = {'{' : 'Blocked Statement Body Open', '}':'Blocked Statement Body Closed'}
+block_keys = blocks.keys()
+
+builtin_functions = {'printf':'printf prints its argument on the console'}
+
+non_identifiers = ['_','-','+','/','*','`','~','!','@','#','$','%','^','&','*','(',')','=','|','"',':',';','{'
+,'}','[',']','<','>','?','/']
+
+numerals = ['0','1','2','3','4','5','6','7','8','9','10']
+
+
+
+
+
+
+
+
+
 ##########################################
 ##                 Tokens
 ##########################################
@@ -38,28 +80,3 @@ class Token(object):
     def __repr__(self):
         return self.__str__()
 
-
-
-
-
-##########################################
-##                 LEXER
-##########################################
-
-class Lexer(object):
-    '''
-        type  : INT,FLOAT, PLUS, or EOF
-        value : 1, 2. 3,'+', Null
-    '''
-    def __init__(self, text):
-        self.text = text   
-        self.pos=-1
-        self.current_char =  None
-
-    def advance(self):
-        self.pos+=1
-        if self.pos < len(self.text):
-            self.current_char = self.text[self.pos]
-        else:
-            self.current_char = None
-        
