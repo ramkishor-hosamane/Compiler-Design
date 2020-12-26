@@ -30,13 +30,13 @@ macros_keys = macros.keys()
 datatype = {'int': 'Integer','float' : 'Floating Point', 'char': 'Character','long': 'long int'}
 datatype_keys = datatype.keys()
 
-keyword = {'return' : 'keyword that returns a value from a block'}
+keyword = {'return' : 'keyword that returns a value from a block','for':'For'}
 keyword_keys = keyword.keys()
 
 delimiter = {';':'terminator symbol semicolon (;)'}
 delimiter_keys = delimiter.keys()
 
-blocks = {'{' : 'Blocked Statement Body Open', '}':'Blocked Statement Body Closed'}
+blocks = {'{' : 'LPAREN', '}':'RPAREN'}
 block_keys = blocks.keys()
 
 builtin_functions = {'printf':'printf prints its argument on the console'}
