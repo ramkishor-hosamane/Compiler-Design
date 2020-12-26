@@ -63,11 +63,11 @@ class Token(object):
         type  : INT,FLOAT, PLUS, or EOF
         value : 1, 2. 3,'+', Null
     '''
-    def __init__(self, type, value):
+    def __init__(self, type, value,line_no):
         
         self.type = type   
         self.value = value
-        
+        self.line_no = line_no
     def __str__(self):
         """String representation of the class instance.
 
@@ -75,7 +75,7 @@ class Token(object):
             Token(INTEGER, 3)
             Token(PLUS '+')
         """
-        return f'Token<{self.type}, {self.value}>'
+        return f'Token<{self.type}, {self.value},{self.line_no}>'
 
     def __repr__(self):
         return self.__str__()

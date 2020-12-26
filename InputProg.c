@@ -1,7 +1,5 @@
-// Made for Lexical Analysis
-/* Program as Input for LabAssignent3 */
-/**/
-#include <stdio.h> // This is a header file
+
+#include <stdio.h> 
 int main()
 {
     int a;
