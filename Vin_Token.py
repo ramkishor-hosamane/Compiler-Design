@@ -71,6 +71,8 @@ for line in program:
             print ("Header File is: "+str(token)+str(sp_header_files[token]))
         if '()' in token:
             print ("Function named"+ str(token))
+        if token.split('(')[0] in builtin_functions:
+            print("Built in function used",token.split('(')[0])
         
         if dataFlag == True and (token not in non_identifiers) and ('()' not in token):
             print ("Identifier: "+str(token))
