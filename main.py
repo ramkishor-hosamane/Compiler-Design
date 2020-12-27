@@ -110,7 +110,8 @@ with open('InputProg.c','r') as f:
             
             if token in keyword_keys: 
                 exceptional_case_for_missing_datatype = True
-                print (keyword[token])
+                tokens_list.append((keyword[token],token,line_count))
+                #print (keyword[token])
 
                 
             if '#' in token:
