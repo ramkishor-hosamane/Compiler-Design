@@ -4,7 +4,7 @@ int hello()
 {
     printf("Ritvik is an idiot");
                                                                                                                                                                                        
-
+{
 }
 
 

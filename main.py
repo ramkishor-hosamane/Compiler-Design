@@ -52,7 +52,7 @@ def is_bracket_error(bracket_stack, bracket, line):    #function to check bracke
         if bracket_stack[-1] == "{" and bracket == "}":
             bracket_stack.pop()
         elif bracket == "=":
-            print(f"Missing Parenthesis error")
+            print(f"Missing Parenthesis error {line_count}")
             print("\n\n")
         else:
             bracket_stack.append(bracket)
@@ -63,8 +63,8 @@ def is_identifier(token):
     pass
 
 
-
-bracket_stack = []   #stack for bracket checks
+#stack for bracket checks
+bracket_stack = []   
 data_flag = False
 stmt_termination_flag =  False
 tokens_list = []
@@ -89,7 +89,8 @@ with open('InputProg.c','r') as f:
 
                 exceptional_case_for_termination = True
                 exceptional_case_for_missing_datatype = True
-                is_bracket_error(bracket_stack,token,line_count)   #check for bracket error
+                #check for bracket error
+                is_bracket_error(bracket_stack,token,line_count)   
                 tokens_list.append((blocks[token],token,line_count))
  
                 
@@ -185,8 +186,9 @@ with open('InputProg.c','r') as f:
         exceptional_case_for_termination = False
         exceptional_case_for_missing_datatype = False
         data_flag = False
-        
-is_bracket_error(bracket_stack, "=", line_count)  #checking if all brackets have their pairs even after pgm is done
+
+#checking if all brackets have their pairs even after pgm is done        
+is_bracket_error(bracket_stack, "=", line_count)  
 
 print ("________________________________________________")
 print("Name \t \t \t Token \t \t \t Line number")        
