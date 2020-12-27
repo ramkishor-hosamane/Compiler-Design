@@ -1,4 +1,5 @@
 from essentials import *
+import pprint
 
 import re
 '''
@@ -51,43 +52,51 @@ with open('InputProg.c','r') as f:
             #Block keys : {,}
             if token in block_keys:
                 exceptional_case_for_termination = True
-                tokens_list.append(Token(blocks[token],token,line_count))
+                tokens_list.append((blocks[token],token,line_count))
 
-                print (blocks[token])
+                #print (blocks[token])
             if token in optr_keys:
-                print ("Operator is: "+ str(operators[token]))
+                tokens_list.append((operators[token],token,line_count))
+                #print ("Operator is: "+ str(operators[token]))
             if token in comment_keys:
                 exceptional_case_for_termination = True
-                print ("Comment Type: "+ str(comments[token]))
+                tokens_list.append((comments[token],token,line_count))
+                #print ("Comment Type: "+ str(comments[token]))
             if token in macros_keys:
                 exceptional_case_for_termination = True
-                print ("Macro is: "+ str(macros[token]))
+                tokens_list.append((macros[token],token,line_count))
+                #print ("Macro is: "+ str(macros[token]))
             if '.h' in token:
                 exceptional_case_for_termination = True
-                print ("Header File is: "+str(token)+str(sp_header_files[token]))
+                tokens_list.append((sp_header_files[token],token,line_count))
+                #print ("Header File is: "+str(token)+str(sp_header_files[token]))
             if '()' in token:
                 #exceptional_case_for_termination  =True
-                print ("Function named"+ str(token))
+                tokens_list.append(('Function',str(token),line_count))
+                #print ("Function named"+ str(token))
 
             if (token not in non_identifiers) and ('()' not in token):
                 if data_flag == True :
-                    print ("Identifier: "+str(token))
+                    tokens_list.append(('Identifier',str(token),line_count))
+                    #print ("Identifier: "+str(token))
 
             if data_flag == True and '()' in token:
                 exceptional_case_for_termination  =True
             if token in datatype_keys:
-                print ("type is: "+ str(datatype[token]))
+                tokens_list.append((datatype[token],token,line_count))
+                #print ("type is: "+ str(datatype[token]))
                 data_flag = True
             
             if token in keyword_keys:
-                print (keyword[token])
+                tokens_list.append((keyword[token],token,line_count))
+                #print (keyword[token])
 
                 
             if '#' in token:
                 match = re.search(r'#\w+', token)
                 exceptional_case_for_termination  =True
-
-                print ("Header"+ str(match.group()))
+                tokens_list.append(('Header',str(match.group()),line_count))
+                #print ("Header"+ str(match.group()))
             if token in numerals:
                 print (str(token)+ str(type(int(token))))
         
@@ -101,6 +110,7 @@ with open('InputProg.c','r') as f:
         exceptional_case_for_termination = False
         data_flag = False   
         
-print(tokens_list)            
+#print(tokens_list)
+pprint.pprint(tokens_list)            
 print ("________________________________________________")
 print()
