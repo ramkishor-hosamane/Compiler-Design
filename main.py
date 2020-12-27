@@ -114,6 +114,13 @@ with open('InputProg.c','r') as f:
             #function call
             elif (re.search(r'([a-zA-Z_{1}][a-zA-Z0-9_]+)(?=\()',line)):
                 exceptional_case_for_missing_datatype = True
+                check = token.split('(')[0]
+                #print (token.split('(')[0],"check")
+                if (check in keyword):
+                    tokens_list.append((keyword[check],check,line_count))
+                else:
+                    tokens_list.append(("User defined function",check,line_count))
+
               
 
             elif token in datatype_keys:
