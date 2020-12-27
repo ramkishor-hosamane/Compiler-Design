@@ -10,7 +10,7 @@ int hello()
 
 int main()
 {
-    inta a;
+    int a;
     main();
     a = 10;
     printf("The value of a is %d ",a);

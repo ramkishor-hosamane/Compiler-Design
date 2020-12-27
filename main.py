@@ -111,11 +111,10 @@ with open('InputProg.c','r') as f:
             elif data_flag == True and '()' in token:
                 exceptional_case_for_termination = True
 
-            #function call
-            elif (re.search(r'([a-zA-Z_{1}][a-zA-Z0-9_]+)(?=\()',line)):
+            #function call  a= (1+2) * 4 
+            elif (re.search(r'([a-zA-Z_{1}][a-zA-Z0-9_]+)(?=\()',line)) and '(' in token and line.strip()[-1]==";":
                 exceptional_case_for_missing_datatype = True
                 check = token.split('(')[0]
-                #print (token.split('(')[0],"check")
                 if (check in keyword):
                     tokens_list.append((keyword[check],check,line_count))
                 else:
@@ -152,7 +151,8 @@ with open('InputProg.c','r') as f:
                         exceptional_case_for_missing_datatype = True
                     else:
                         if stripped_token not in identifiers:
-                            print(f"Identifier {stripped_token} is not declared")
+                            pass
+                            #print(f"Identifier {stripped_token} is not declared")
                             #print(f"This is identifiers {identifiers} und diese ist {stripped_token}")
         #print("Exceptional case now",exceptional_case_for_termination)
         stmt_termination_flag = is_statement_terminated(exceptional_case_for_termination,line)
