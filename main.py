@@ -1,5 +1,4 @@
 from essentials import *
-import pprint
 
 import re
 '''
@@ -74,67 +73,39 @@ with open('InputProg.c','r') as f:
             if token in block_keys:
 
                 exceptional_case_for_termination = True
-<<<<<<< HEAD
                 exceptional_case_for_missing_datatype = True
                 tokens_list.append(Token(blocks[token],token,line_count))
-                print(blocks[token])
                 
             elif token in optr_keys:
+                tokens_list.append((operators[token],token,line_count))
                 
-                print("Operator is: " + str(operators[token]))
                 
             elif token in comment_keys:
+                tokens_list.append((comments[token],token,line_count))
                 exceptional_case_for_termination = True
                 exceptional_case_for_missing_datatype = True
-                print("Comment Type: " + str(comments[token]))
                 
             elif token in macros_keys:
                 exceptional_case_for_termination = True
+                tokens_list.append((macros[token],token,line_count))
+
                 exceptional_case_for_missing_datatype = True
-                print("Macro is: " + str(macros[token]))
                 
             elif '.h' in token:
                 exceptional_case_for_termination = True
+                tokens_list.append((sp_header_files[token],token,line_count))
+
                 exceptional_case_for_missing_datatype = True
-                print("Header File is: " + str(token) + str(sp_header_files[token]))
                 
             elif '()' in token:
-                #exceptional_case_for_termination  =True
+                exceptional_case_for_termination  =True
                 exceptional_case_for_missing_datatype = True
-                print ("Function named"+ str(token))
+                tokens_list.append(('Function',str(token),line_count))
+                #print ("Function named "+ str(token))
             
         
                     
 
-=======
-                tokens_list.append((blocks[token],token,line_count))
-
-                #print (blocks[token])
-            if token in optr_keys:
-                tokens_list.append((operators[token],token,line_count))
-                #print ("Operator is: "+ str(operators[token]))
-            if token in comment_keys:
-                exceptional_case_for_termination = True
-                tokens_list.append((comments[token],token,line_count))
-                #print ("Comment Type: "+ str(comments[token]))
-            if token in macros_keys:
-                exceptional_case_for_termination = True
-                tokens_list.append((macros[token],token,line_count))
-                #print ("Macro is: "+ str(macros[token]))
-            if '.h' in token:
-                exceptional_case_for_termination = True
-                tokens_list.append((sp_header_files[token],token,line_count))
-                #print ("Header File is: "+str(token)+str(sp_header_files[token]))
-            if '()' in token:
-                #exceptional_case_for_termination  =True
-                tokens_list.append(('Function',str(token),line_count))
-                #print ("Function named"+ str(token))
-
-            if (token not in non_identifiers) and ('()' not in token):
-                if data_flag == True :
-                    tokens_list.append(('Identifier',str(token),line_count))
-                    #print ("Identifier: "+str(token))
->>>>>>> 400b581491aab5cc22cd153690177a777045b035
 
             #function definition 
             elif data_flag == True and '()' in token:
@@ -143,61 +114,49 @@ with open('InputProg.c','r') as f:
             #function call
             elif (re.search(r'([a-zA-Z_{1}][a-zA-Z0-9_]+)(?=\()',line)):
                 exceptional_case_for_missing_datatype = True
-               
+              
 
-<<<<<<< HEAD
             elif token in datatype_keys:
-                print ("type is: "+ str(datatype[token]))
-=======
-            if token in datatype_keys:
                 tokens_list.append((datatype[token],token,line_count))
-                #print ("type is: "+ str(datatype[token]))
->>>>>>> 400b581491aab5cc22cd153690177a777045b035
                 data_flag = True
             
             elif token in keyword_keys: 
                 exceptional_case_for_missing_datatype = True
                 tokens_list.append((keyword[token],token,line_count))
-                #print (keyword[token])
 
                 
             elif '#' in token:
                 match = re.search(r'#\w+', token)
                 exceptional_case_for_termination  =True
-<<<<<<< HEAD
-
-                print ("Header"+ str(match.group()))
-            elif token.strip().strip(";") in numerals:
-=======
                 tokens_list.append(('Header',str(match.group()),line_count))
-                #print ("Header"+ str(match.group()))
-            if token in numerals:
->>>>>>> 400b581491aab5cc22cd153690177a777045b035
+
+            elif token.strip().strip(";") in numerals:
                 exceptional_case_for_missing_datatype = True
-                
+
             
             
             elif re.search(r'[_a-zA-Z][_a-zA-Z0-9]{0,30}', line) and len(token.strip().strip(";")) != 0:
                 stripped_token = token.strip().strip(";")
                 if not stripped_token[0].isdigit() :
                     if data_flag == True:
-                        print("Identifier: " , stripped_token)
+                        #print("Identifier: " , stripped_token)
                         identifiers.add(stripped_token)
-                        print(f"{stripped_token} added")
+                        tokens_list.append(('Identifier',str(token),line_count))
                         exceptional_case_for_missing_datatype = True
                     else:
                         if stripped_token not in identifiers:
                             print(f"Identifier {stripped_token} is not declared")
-                            print(f"This is identifiers {identifiers} und diese ist {stripped_token}")
+                            #print(f"This is identifiers {identifiers} und diese ist {stripped_token}")
         #print("Exceptional case now",exceptional_case_for_termination)
         stmt_termination_flag = is_statement_terminated(exceptional_case_for_termination,line)
 
         if not stmt_termination_flag:
             print("Statement not termiated at line :",line_count)
-        
+            print("\n\n");        
+
         if is_datatype_error(exceptional_case_for_missing_datatype,line):
-           print(f"DAtatype error for line {line_count}")
-        
+           print(f"Datatype error for line {line_count}")
+           print("\n\n");        
         stmt_termination_flag = False
         exceptional_case_for_termination = False
         exceptional_case_for_missing_datatype = False
@@ -205,7 +164,6 @@ with open('InputProg.c','r') as f:
         
         
         
-#print(tokens_list)
-pprint.pprint(tokens_list)            
+print(tokens_list)
 print ("________________________________________________")
 print()
