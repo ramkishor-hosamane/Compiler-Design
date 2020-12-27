@@ -4,7 +4,7 @@ import re
 '''
 1) missing semicoln ------ done
 2) datatype error
-3) mismatch parenthisis
+3) mismatch parenthisis ---- done, Vinnu
 if(condition);
 for(i=0;i<n;i++);
 
@@ -44,12 +44,27 @@ def is_datatype_error(exceptional_case_for_missing_datatype,line):
 
     return True
 
+def is_bracket_error(bracket_stack, bracket, line):
+    if (not bracket_stack and bracket == "}"):
+        print(f"Parenthesis error for line {line_count}")
+        print("\n\n")
+    elif bracket_stack:
+        if bracket_stack[-1] == "{" and bracket == "}":
+            bracket_stack.pop()
+        elif bracket == "=":
+            print(f"Missing Parenthesis error")
+            print("\n\n")
+        else:
+            bracket_stack.append(bracket)
+    else:
+        bracket_stack.append(bracket)
+
 def is_identifier(token):
     pass
 
 
 
-
+bracket_stack = []
 data_flag = False
 stmt_termination_flag =  False
 tokens_list = []
@@ -74,7 +89,9 @@ with open('InputProg.c','r') as f:
 
                 exceptional_case_for_termination = True
                 exceptional_case_for_missing_datatype = True
+                is_bracket_error(bracket_stack,token,line_count)
                 tokens_list.append((blocks[token],token,line_count))
+ 
                 
             elif token in optr_keys:
                 tokens_list.append((operators[token],token,line_count))
@@ -169,7 +186,8 @@ with open('InputProg.c','r') as f:
         exceptional_case_for_missing_datatype = False
         data_flag = False
         
-        
+is_bracket_error(bracket_stack, "=", line_count)
+
 print ("________________________________________________")
 print("Name \t \t \t Token \t \t \t Line number")        
 pprint.pprint(tokens_list)

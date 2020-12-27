@@ -1,8 +1,9 @@
 #include <stdio.h> 
+
 int hello()
 {
     printf("Ritvik is an idiot");
-                                                                                                                                                                                          
+                                                                                                                                                                                       
 
 }
 
