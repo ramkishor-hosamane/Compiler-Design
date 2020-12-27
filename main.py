@@ -138,6 +138,8 @@ with open('InputProg.c','r') as f:
         data_flag = False   
         
 #print(tokens_list)
+print ("________________________________________________")
+print ("name \t \t \t Token \t \t \t Line number")
 pprint.pprint(tokens_list)            
 print ("________________________________________________")
 print()
