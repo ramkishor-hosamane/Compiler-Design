@@ -1,5 +1,5 @@
 from essentials import *
-
+import pprint
 import re
 '''
 1) missing semicoln ------ done
@@ -74,7 +74,7 @@ with open('InputProg.c','r') as f:
 
                 exceptional_case_for_termination = True
                 exceptional_case_for_missing_datatype = True
-                tokens_list.append(Token(blocks[token],token,line_count))
+                tokens_list.append((blocks[token],token,line_count))
                 
             elif token in optr_keys:
                 tokens_list.append((operators[token],token,line_count))
@@ -163,7 +163,8 @@ with open('InputProg.c','r') as f:
         data_flag = False
         
         
-        
-print(tokens_list)
+print ("________________________________________________")
+print("Name \t \t \t Token \t \t \t Line number")        
+pprint.pprint(tokens_list)
 print ("________________________________________________")
 print()
