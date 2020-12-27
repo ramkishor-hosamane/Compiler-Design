@@ -50,7 +50,6 @@ def is_identifier(token):
 
 
 
-    return True
 
 data_flag = False
 stmt_termination_flag =  False
@@ -75,7 +74,6 @@ with open('InputProg.c','r') as f:
             if token in block_keys:
 
                 exceptional_case_for_termination = True
-<<<<<<< HEAD
 <<<<<<< HEAD
                 exceptional_case_for_missing_datatype = True
                 tokens_list.append(Token(blocks[token],token,line_count))
@@ -109,8 +107,6 @@ with open('InputProg.c','r') as f:
                     
 
 =======
-=======
->>>>>>> 7c470d051d141bae5c2ab6c623daed987e2bde27
                 tokens_list.append((blocks[token],token,line_count))
 
                 #print (blocks[token])
@@ -138,7 +134,6 @@ with open('InputProg.c','r') as f:
                 if data_flag == True :
                     tokens_list.append(('Identifier',str(token),line_count))
                     #print ("Identifier: "+str(token))
-<<<<<<< HEAD
 >>>>>>> 400b581491aab5cc22cd153690177a777045b035
 
             #function definition 
@@ -161,24 +156,6 @@ with open('InputProg.c','r') as f:
                 data_flag = True
             
             elif token in keyword_keys: 
-=======
-
-            #function definition 
-            if data_flag == True and '()' in token:
-                exceptional_case_for_termination = True
-
-            #function call
-            if (re.search(r'([a-zA-Z_{1}][a-zA-Z0-9_]+)(?=\()',line)):
-                exceptional_case_for_missing_datatype = True
-               
-
-            if token in datatype_keys:
-                tokens_list.append((datatype[token],token,line_count))
-                #print ("type is: "+ str(datatype[token]))
-                data_flag = True
-            
-            if token in keyword_keys: 
->>>>>>> 7c470d051d141bae5c2ab6c623daed987e2bde27
                 exceptional_case_for_missing_datatype = True
                 tokens_list.append((keyword[token],token,line_count))
                 #print (keyword[token])
@@ -187,7 +164,6 @@ with open('InputProg.c','r') as f:
             elif '#' in token:
                 match = re.search(r'#\w+', token)
                 exceptional_case_for_termination  =True
-<<<<<<< HEAD
 <<<<<<< HEAD
 
                 print ("Header"+ str(match.group()))
@@ -213,14 +189,6 @@ with open('InputProg.c','r') as f:
                         if stripped_token not in identifiers:
                             print(f"Identifier {stripped_token} is not declared")
                             print(f"This is identifiers {identifiers} und diese ist {stripped_token}")
-=======
-                tokens_list.append(('Header',str(match.group()),line_count))
-                #print ("Header"+ str(match.group()))
-            if token in numerals:
-                exceptional_case_for_missing_datatype = True
-                print (str(token))
-        
->>>>>>> 7c470d051d141bae5c2ab6c623daed987e2bde27
         #print("Exceptional case now",exceptional_case_for_termination)
         stmt_termination_flag = is_statement_terminated(exceptional_case_for_termination,line)
 
@@ -233,19 +201,11 @@ with open('InputProg.c','r') as f:
         stmt_termination_flag = False
         exceptional_case_for_termination = False
         exceptional_case_for_missing_datatype = False
-<<<<<<< HEAD
         data_flag = False
         
         
         
 #print(tokens_list)
-=======
-        data_flag = False   
-        
-#print(tokens_list)
-print ("________________________________________________")
-print ("name \t \t \t Token \t \t \t Line number")
->>>>>>> 7c470d051d141bae5c2ab6c623daed987e2bde27
 pprint.pprint(tokens_list)            
 print ("________________________________________________")
 print()
