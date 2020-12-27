@@ -30,7 +30,7 @@ macros_keys = macros.keys()
 datatype = {'int': 'Integer','float' : 'Floating Point', 'char': 'Character','long': 'long int'}
 datatype_keys = datatype.keys()
 
-keyword = {'return' : 'keyword that returns a value from a block','for':'For'}
+keyword = {'return' : 'keyword that returns a value from a block','for':'For','printf': "Printing function"}
 keyword_keys = keyword.keys()
 
 delimiter = {';':'terminator symbol semicolon (;)'}

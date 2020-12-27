@@ -19,23 +19,37 @@ for(i=0;i<n;i++);
                      ->Flower braces
 
 '''
+identifiers = set()
+
 def is_statement_terminated(exceptional_case_for_termination,line):
     if exceptional_case_for_termination:
         return True
 
-    if len(line)==0:
+    if len(line.strip())==0:
         return True
     else:
         if line[-1] ==";":
             return True
     return False
 
+def is_datatype_error(exceptional_case_for_missing_datatype,line):
+    if exceptional_case_for_missing_datatype:
+        return False
+    
+    if len(line.strip()) == 0:
+        return False
+    
+    if ("=" in line and line.split("=")[0].strip() in identifiers):
+        print(line.split("=")[0])
+        return False
 
+    return True
 
 data_flag = False
 stmt_termination_flag =  False
 tokens_list = []
 exceptional_case_for_termination = False
+exceptional_case_for_missing_datatype = False 
 with open('InputProg.c','r') as f:
     
     whole_program = f.read()
@@ -80,16 +94,29 @@ with open('InputProg.c','r') as f:
                     tokens_list.append(('Identifier',str(token),line_count))
                     #print ("Identifier: "+str(token))
 
+            #function definition 
             if data_flag == True and '()' in token:
-                exceptional_case_for_termination  =True
+                exceptional_case_for_termination = True
+
+            #function call
+            if (re.search(r'([a-zA-Z_{1}][a-zA-Z0-9_]+)(?=\()',line)):
+                exceptional_case_for_missing_datatype = True
+               
+
             if token in datatype_keys:
                 tokens_list.append((datatype[token],token,line_count))
                 #print ("type is: "+ str(datatype[token]))
                 data_flag = True
             
+<<<<<<< HEAD
             if token in keyword_keys:
                 tokens_list.append((keyword[token],token,line_count))
                 #print (keyword[token])
+=======
+            if token in keyword_keys: 
+                exceptional_case_for_missing_datatype = True
+                print (keyword[token])
+>>>>>>> a24f0a29d4805adfd61256491a1e7fdc856e360e
 
                 
             if '#' in token:
@@ -98,16 +125,21 @@ with open('InputProg.c','r') as f:
                 tokens_list.append(('Header',str(match.group()),line_count))
                 #print ("Header"+ str(match.group()))
             if token in numerals:
-                print (str(token)+ str(type(int(token))))
+                exceptional_case_for_missing_datatype = True
+                print (str(token))
         
         #print("Exceptional case now",exceptional_case_for_termination)
         stmt_termination_flag = is_statement_terminated(exceptional_case_for_termination,line)
 
         if not stmt_termination_flag:
             print("Statement not termiated at line :",line_count)
-
+        
+        if is_datatype_error(exceptional_case_for_missing_datatype,line):
+           print(f"DAtatype error for line {line_count}")
+        
         stmt_termination_flag = False
         exceptional_case_for_termination = False
+        exceptional_case_for_missing_datatype = False
         data_flag = False   
         
 #print(tokens_list)
