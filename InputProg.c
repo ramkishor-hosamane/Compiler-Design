@@ -1,5 +1,5 @@
 #include <stdio.h> 
-
+#include <math.h>
 int hello()
 {
     printf("Ritvik is an idiot");
@@ -19,3 +19,4 @@ int main()
 }
 
 
+}

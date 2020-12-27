@@ -30,7 +30,7 @@ macros_keys = macros.keys()
 datatype = {'int': 'Integer','float' : 'Floating Point', 'char': 'Character','long': 'long int','string':'String'}
 datatype_keys = datatype.keys()
 
-keyword = {'return' : 'Return statement','for':'Loop','printf': "Printing function",'scanf':'Input function','auto':'Automatic variable','break':'Break statement','switch':'Switch statement','if':'condition statement','while':'Loop','continue':'Continue','default':'Default'}
+keyword = {'return' : 'Return statement','for':'Loop','printf': "Printing function",'scanf':'Input function','auto':'Automatic variable','break':'Break statement','switch':'Switch statement','while':'Loop','continue':'Continue','default':'Default'}
 keyword_keys = keyword.keys()
 
 delimiter = {';':'Statement terminator'}
