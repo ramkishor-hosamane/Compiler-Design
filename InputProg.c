@@ -2,13 +2,15 @@
 int hello()
 {
     printf("Ritvik is an idiot");
+                                                                                                                                                                                          
+
 }
 
 
 
 int main()
 {
-    int a
+    inta a;
     main();
     a = 10;
     printf("The value of a is %d ",a);
