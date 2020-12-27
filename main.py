@@ -108,15 +108,9 @@ with open('InputProg.c','r') as f:
                 #print ("type is: "+ str(datatype[token]))
                 data_flag = True
             
-<<<<<<< HEAD
-            if token in keyword_keys:
-                tokens_list.append((keyword[token],token,line_count))
-                #print (keyword[token])
-=======
             if token in keyword_keys: 
                 exceptional_case_for_missing_datatype = True
                 print (keyword[token])
->>>>>>> a24f0a29d4805adfd61256491a1e7fdc856e360e
 
                 
             if '#' in token:
