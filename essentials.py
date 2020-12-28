@@ -13,7 +13,7 @@ RPAREN = 'RPAREN'
 
 
 
-operators = { '=': 'Assignment Operator','+': 'Additon Operator', '-' : 'Substraction Operator', '/' : 'Division Operator', '*': 'Multiplication Operator', '++' : 'increment Operator', '--' : 'Decrement Operator'}
+operators = { '=': 'Assignment Operator','+': 'Additon Operator', '-' : 'Substraction Operator', '/' : 'Division Operator', '*': 'Multiplication Operator', '++' : 'increment Operator', '--' : 'Decrement Operator','%':'Modulus operator','==':'Equal to','!=':'Not equal to','&&':'Logical AND','||':'Logical OR','!':'Logical NOT'}
 optr_keys = operators.keys()
 
 comments = {r'//' : 'Single Line Comment',r'/*' : 'Multiline Comment Start', r'*/' : 'Multiline Comment End', '/**/' : 'Empty Multiline comment'}
@@ -22,24 +22,23 @@ comment_keys = comments.keys()
 header = {'.h': 'header file'}
 header_keys = header.keys()
 
-sp_header_files = {'<stdio.h>':'Standard Input Output Header','<string.h>':'String Manipulation Library'}
+sp_header_files = {'<stdio.h>':'Standard I/O Functions','<string.h>':'String Manipulation Library','<conio.h>':'Console I/O functions','<stdlib.h>':'General utility functions','<math.h>':'Mathematics function','<time.h>':'Time and Date functions'}
 
 macros = {r'#\w+' : 'macro'}
 macros_keys = macros.keys()
 
-datatype = {'int': 'Integer','float' : 'Floating Point', 'char': 'Character','long': 'long int'}
+datatype = {'int': 'Integer','float' : 'Floating Point', 'char': 'Character','long': 'long int','string':'String'}
 datatype_keys = datatype.keys()
 
-keyword = {'return' : 'keyword that returns a value from a block','for':'For','printf': "Printing function"}
+keyword = {'return' : 'Return statement','for':'Loop','printf': "Printing function",'scanf':'Input function','auto':'Automatic variable','break':'Break statement','switch':'Switch statement','while':'Loop','continue':'Continue','default':'Default'}
 keyword_keys = keyword.keys()
 
-delimiter = {';':'terminator symbol semicolon (;)'}
+delimiter = {';':'Statement terminator'}
 delimiter_keys = delimiter.keys()
 
 blocks = {'{' : 'LPAREN', '}':'RPAREN'}
 block_keys = blocks.keys()
 
-builtin_functions = {'printf':'printf prints its argument on the console'}
 
 non_identifiers = ['_','-','+','/','*','`','~','!','@','#','$','%','^','&','*','(',')','=','|','"',':',';','{'
 ,'}','[',']','<','>','?','/']
