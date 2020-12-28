@@ -1,16 +1,14 @@
 from essentials import *
 import pprint
+import TableIt
+import sys
 import re
-'''
-1) missing semicoln ------ done
-2) datatype error
-3) mismatch parenthisis ---- done, Vinnu
-if(condition);
-for(i=0;i<n;i++);
 
-
+#Taking input program from commandline
+input_program = sys.argv[1]
 '''
-'''Checks if statement(line) is termianted or not
+
+Checks if statement(line) is termianted or not
     exceptional case:
                      ->function definition
                      ->Header files
@@ -71,7 +69,7 @@ tokens_list = []
 exceptional_case_for_termination = False
 exceptional_case_for_missing_datatype = False
 
-with open('InputProg.c','r') as f:
+with open(input_program,'r') as f:
     
     whole_program = f.read()
 
@@ -190,8 +188,8 @@ with open('InputProg.c','r') as f:
 #checking if all brackets have their pairs even after pgm is done        
 is_bracket_error(bracket_stack, "=", line_count)  
 
-print ("________________________________________________")
-print("Name \t \t \t Token \t \t \t Line number")        
-pprint.pprint(tokens_list)
-print ("________________________________________________")
+print ("-------------------------------------------------------------------------------------------------------------------------------------")
+print("|     \tName\t\t\t\t\t\t Token \t\t\t\t\t\t Line number\t\t\t\t\t\t          | ")        
+#pprint.pprint(tokens_list)
+TableIt.printTable(tokens_list)
 print()
