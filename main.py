@@ -30,9 +30,9 @@ def is_datatype_error(exceptional_case_for_missing_datatype,line):
     if len(line.strip()) == 0:
         return False
 
-    if ("=" in line and line.split("=")[0].strip() in identifiers):
-        print(line.split("=")[0])
-        return False
+    #if ("=" in line and line.split("=")[0].strip() in identifiers):
+    #    print(line.split("=")[0])
+    #    return False
 
     return True
 
@@ -133,6 +133,7 @@ with open(input_program,'r') as f:
               
 
             elif token in datatype_keys:
+                exceptional_case_for_missing_datatype = True
                 tokens_list.append((datatype[token],token,line_no))
                 data_flag = True
             
