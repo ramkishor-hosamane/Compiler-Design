@@ -6,22 +6,15 @@ import re
 
 #Taking input program from commandline
 input_program = sys.argv[1]
-'''
 
-Checks if statement(line) is termianted or not
-    exceptional case:
-                     ->function definition
-                     ->Header files
-                     ->Blank lines
-                     ->Flower braces
-
-'''
 identifiers = set()
 
+#Function to check if statement is terminated by ';'
 def is_statement_terminated(exceptional_case_for_termination,line):
     if exceptional_case_for_termination:
         return True
 
+    #Blank lines
     if len(line.strip())==0:
         return True
     else:
@@ -29,36 +22,36 @@ def is_statement_terminated(exceptional_case_for_termination,line):
             return True
     return False
 
+#
 def is_datatype_error(exceptional_case_for_missing_datatype,line):
     if exceptional_case_for_missing_datatype:
         return False
     
     if len(line.strip()) == 0:
         return False
-    
+
     if ("=" in line and line.split("=")[0].strip() in identifiers):
         print(line.split("=")[0])
         return False
 
     return True
 
-def is_bracket_error(bracket_stack, bracket, line):    #function to check bracket error
+
+#function to check bracket error
+def is_bracket_error(bracket_stack, bracket, line):    
     if (not bracket_stack and bracket == "}"):
-        print(f"Parenthesis error for line {line_count}")
+        print(f"Parenthesis error for line {line_no}")
         print("\n\n")
     elif bracket_stack:
         if bracket_stack[-1] == "{" and bracket == "}":
             bracket_stack.pop()
-        elif bracket == "=":
-            print(f"Missing Parenthesis error {line_count}")
+        elif bracket == "program_ended":
+            print(f"Missing Parenthesis error {line_no}")
             print("\n\n")
         else:
             bracket_stack.append(bracket)
     else:
         bracket_stack.append(bracket)
-
-def is_identifier(token):
-    pass
 
 
 #stack for bracket checks
@@ -76,7 +69,7 @@ with open(input_program,'r') as f:
     #Dividing entire program w r t lines
     program =  whole_program.split('\n')
 
-    for line_count,line in enumerate(program,1):
+    for line_no,line in enumerate(program,1):
         
         tokens = line.split(' ')
 
@@ -87,37 +80,38 @@ with open(input_program,'r') as f:
 
                 exceptional_case_for_termination = True
                 exceptional_case_for_missing_datatype = True
+                
                 #check for bracket error
-                is_bracket_error(bracket_stack,token,line_count)   
-                tokens_list.append((blocks[token],token,line_count))
+                is_bracket_error(bracket_stack,token,line_no)   
+                tokens_list.append((blocks[token],token,line_no))
  
                 
             elif token in optr_keys:
-                tokens_list.append((operators[token],token,line_count))
+                tokens_list.append((operators[token],token,line_no))
                 
                 
             elif token in comment_keys:
-                tokens_list.append((comments[token],token,line_count))
+                tokens_list.append((comments[token],token,line_no))
                 exceptional_case_for_termination = True
                 exceptional_case_for_missing_datatype = True
                 
             elif token in macros_keys:
                 exceptional_case_for_termination = True
-                tokens_list.append((macros[token],token,line_count))
+                tokens_list.append((macros[token],token,line_no))
 
                 exceptional_case_for_missing_datatype = True
                 
             elif '.h' in token:
                 exceptional_case_for_termination = True
-                tokens_list.append((sp_header_files[token],token,line_count))
+                tokens_list.append((sp_header_files[token],token,line_no))
 
                 exceptional_case_for_missing_datatype = True
                 
+            #Function    
             elif '()' in token:
                 exceptional_case_for_termination  =True
                 exceptional_case_for_missing_datatype = True
-                tokens_list.append(('Function',str(token),line_count))
-                #print ("Function named "+ str(token))
+                tokens_list.append(('Function',str(token),line_no))
             
         
                     
@@ -132,53 +126,45 @@ with open(input_program,'r') as f:
                 exceptional_case_for_missing_datatype = True
                 check = token.split('(')[0]
                 if (check in keyword):
-                    tokens_list.append((keyword[check],check,line_count))
+                    tokens_list.append((keyword[check],check,line_no))
                 else:
-                    tokens_list.append(("User defined function",check,line_count))
+                    tokens_list.append(("User defined function",check,line_no))
 
               
 
             elif token in datatype_keys:
-                tokens_list.append((datatype[token],token,line_count))
+                tokens_list.append((datatype[token],token,line_no))
                 data_flag = True
             
             elif token in keyword_keys: 
                 exceptional_case_for_missing_datatype = True
-                tokens_list.append((keyword[token],token,line_count))
-
-                
-            elif '#' in token:
-                match = re.search(r'#\w+', token)
-                exceptional_case_for_termination  =True
-                tokens_list.append(('Header',str(match.group()),line_count))
+                tokens_list.append((keyword[token],token,line_no))
 
             elif token.strip().strip(";") in numerals:
                 exceptional_case_for_missing_datatype = True
 
             
-            
-            elif re.search(r'[_a-zA-Z][_a-zA-Z0-9]{0,30}', line) and len(token.strip().strip(";")) != 0:
+            #Identifying identifier
+            elif re.search(r'[_a-zA-Z][_a-zA-Z0-9]{0,30}', line) and '(' in token and len(token.strip().strip(";")) != 0:
                 stripped_token = token.strip().strip(";")
                 if not stripped_token[0].isdigit() :
+                    #If token(variable) is declaring
                     if data_flag == True:
-                        #print("Identifier: " , stripped_token)
                         identifiers.add(stripped_token)
-                        tokens_list.append(('Identifier',str(token),line_count))
+                        tokens_list.append(('Identifier',str(token),line_no))
                         exceptional_case_for_missing_datatype = True
                     else:
+                        #Check if the token is already defined
                         if stripped_token not in identifiers:
-                            pass
-                            #print(f"Identifier {stripped_token} is not declared")
-                            #print(f"This is identifiers {identifiers} und diese ist {stripped_token}")
-        #print("Exceptional case now",exceptional_case_for_termination)
+                            print(f"Identifier {stripped_token} is not declared")
         stmt_termination_flag = is_statement_terminated(exceptional_case_for_termination,line)
 
         if not stmt_termination_flag:
-            print("Statement not termiated at line :",line_count)
+            print("Statement not termiated at line :",line_no)
             print("\n\n");        
 
         if is_datatype_error(exceptional_case_for_missing_datatype,line):
-           print(f"Datatype error for line {line_count}")
+           print(f"Datatype error for line {line_no}")
            print("\n\n");        
         stmt_termination_flag = False
         exceptional_case_for_termination = False
@@ -186,10 +172,10 @@ with open(input_program,'r') as f:
         data_flag = False
 
 #checking if all brackets have their pairs even after pgm is done        
-is_bracket_error(bracket_stack, "=", line_count)  
+is_bracket_error(bracket_stack, "program_ended", line_no)  
 
-print ("-------------------------------------------------------------------------------------------------------------------------------------")
-print("|     \tName\t\t\t\t\t\t Token \t\t\t\t\t\t Line number\t\t\t\t\t\t          | ")        
+print ("-------------------------------------------------------------------------------------")
+print("|     \tName\t\t\t\t Token \t\t\t Line number\t\t\t\t          | ")        
 #pprint.pprint(tokens_list)
 TableIt.printTable(tokens_list)
 print()

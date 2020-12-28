@@ -2,16 +2,16 @@
 
 int hello()
 {
-    printf("Ritvik is an idiot");
+    printf("Hello world");
 
 
 }
 int main()
 {
     int a;
-    main();
+    main()
     a = 10;
-    printf("The value of a is %d ",a);
+    printf("The value of a is %d ",a)
     return 0;
 }
 

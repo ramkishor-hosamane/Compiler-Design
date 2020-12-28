@@ -3,16 +3,16 @@
 int hello()
 {
     printf("Hello world");
+{
+
 
 
 }
 int main()
 {
-    ints a;
+    int a;
     main();
     a = 10;
     printf("The value of a is %d ",a);
     return 0;
 }
-
-
