@@ -4,10 +4,10 @@
 
 int hello()
 {
-    printf("Hello world");
-                                    
+    printf ("Hello world");
 
 
+    
 }
 int main()
 {
@@ -16,7 +16,7 @@ int main()
     hello();
     a = 10;
     b = a + 10 * 4;
-    printf("The value of a is %d ",a);
+    printf("a=%d",a);
     return 0;
 }
 

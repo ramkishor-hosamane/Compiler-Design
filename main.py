@@ -120,7 +120,6 @@ with open(input_program,'r') as f:
             #function definition 
             elif data_flag == True and '()' in token:
                 exceptional_case_for_termination = True
-
             #function call  a= (1+2) * 4 
             elif (re.search(r'([a-zA-Z_{1}][a-zA-Z0-9_]+)(?=\()',line)) and '(' in token and line.strip()[-1]==";":
                 exceptional_case_for_missing_datatype = True
@@ -145,14 +144,16 @@ with open(input_program,'r') as f:
 
             
             #Identifying identifier
-            elif re.search(r'[_a-zA-Z][_a-zA-Z0-9]{0,30}', line) and '(' in token and len(token.strip().strip(";")) != 0:
+            elif re.search(r'[_a-zA-Z][_a-zA-Z0-9]{0,30}', line) and ')' not in token and '#' not in token and '(' not in token  and len(token.strip().strip(";")) != 0:
                 stripped_token = token.strip().strip(";")
+                #print(stripped_token,"is identifier")
                 if not stripped_token[0].isdigit() :
                     #If token(variable) is declaring
-                    if data_flag == True:
+                    if data_flag == True :
                         identifiers.add(stripped_token)
                         tokens_list.append(('Identifier',str(token),line_no))
                         exceptional_case_for_missing_datatype = True
+
                     else:
                         #Check if the token is already defined
                         if stripped_token not in identifiers:
@@ -175,7 +176,7 @@ with open(input_program,'r') as f:
 is_bracket_error(bracket_stack, "program_ended", line_no)  
 
 print ("-------------------------------------------------------------------------------------")
-print("|     \tName\t\t\t\t Token \t\t\t Line number\t\t\t\t          | ")        
+print("|     \tName\t\t\t\t Token \t\t\t Line number\t    | ")        
 #pprint.pprint(tokens_list)
 TableIt.printTable(tokens_list)
 print()

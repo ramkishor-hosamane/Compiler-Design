@@ -11,7 +11,7 @@ int main()
     ints a;
     main();
     a = 10;
-    printf("The value of a is %d ",a);
+    printf("a=%d",a);
     return 0;
 }
 
